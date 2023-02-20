@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const { Category, Product } = require('../../models')
+// eslint-disable-next-line no-unused-vars
+const { Category, Product, ProductTag } = require('../../models')
 
 // The `/api/categories` endpoint
 
@@ -54,11 +55,12 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
-    const categoryData = await Category.update({
-      where: {
-        id: req.params.id
-      }
-    })
+    const categoryData = await Category.update(
+      req.body, {
+        where: {
+          id: req.params.id
+        }
+      })
 
     if (!categoryData) {
       res.status(404).json({ message: 'No location found with this id!' })
